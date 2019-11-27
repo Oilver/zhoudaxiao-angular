@@ -1,0 +1,25 @@
+[nz-form] {
+  max-width: 600px;
+}
+
+button {
+  margin-left: 8px;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+#runningAccountIndex {
+  width: 100%;
+  height: 100%
+}
+
+nz-select {
+  margin-right: 8px;
+  width: 120px;
+}

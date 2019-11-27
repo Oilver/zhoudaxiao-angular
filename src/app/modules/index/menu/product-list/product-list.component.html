@@ -1,0 +1,18 @@
+<div id="runningAccountIndex" #runningAccountIndex>
+  <div class="flex">
+    <h1>{{categoryName}}</h1>
+    <div style="display: flex">
+      <div>
+        <strong><span nz-text>类 别： </span></strong>
+        <nz-select [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="请选择"
+                   (ngModelChange)="changeCategory()">
+          <nz-option *ngFor="let item of categoryList" nzValue="{{item.id}}" nzLabel="{{item.name}}"></nz-option>
+        </nz-select>
+      </div>
+      <button nz-button (click)="operateProduct('add')">
+        <i nz-icon nzType="plus"></i><span>添加商品</span>
+      </button>
+    </div>
+  </div>
+  <app-product-table #productTable [recordNumber]="recordNumber"></app-product-table>
+</div>

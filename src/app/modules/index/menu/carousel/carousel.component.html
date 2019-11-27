@@ -1,0 +1,74 @@
+<div id="runningAccountIndex" #runningAccountIndex>
+  <div class="flex">
+    <h1>首页の轮播图</h1>
+    <nz-upload nzAction="{{uploadUrl}}"
+               nzAccept="image/jpg,image/jpeg,image/png,image/svg,image/webp"
+               [nzShowUploadList]="false"
+               [nzBeforeUpload]="beforeUpload"
+               [nzCustomRequest]="customReq"
+    >
+      <button nz-button><i nz-icon nzType="upload"></i><span>添加图片</span></button>
+    </nz-upload>
+  </div>
+
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="修改优先级"
+    (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()"
+    [nzOkLoading]="isOkLoading"
+    nzOkText="确定"
+    nzCancelText="取消"
+    [nzOkDisabled]="!recordForm.valid"
+    [nzBodyStyle]="{'padding-bottom.px': 0}"
+  >
+
+    <form nz-form [formGroup]="recordForm">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>
+          <span nz-text>优先级</span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="此为必填项">
+          <nz-input-number style="width: 100%" formControlName="priority" [nzMin]="0" [nzMax]="99"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-modal>
+
+  <div *ngIf="listOfDisplayData.length > 0" style="padding-left: 15px;padding-right: 15px;padding-top: 10px">
+    <nz-carousel [nzEffect]="'scrollx'" nzAutoPlay [nzAutoPlaySpeed]="3000">
+      <div nz-carousel-content *ngFor="let data of listOfDisplayData">
+        <nz-avatar [nzSize]="100" [nzShape]="'square'" [nzIcon]="'user'" nzSrc="{{data.url}}"></nz-avatar>
+      </div>
+    </nz-carousel>
+  </div>
+
+  <div class="custom-table">
+    <nz-table #table nzSize="middle" [nzData]="listOfDisplayData" [nzFrontPagination]="false"
+              style="padding-left: 15px;padding-right: 15px;padding-top: 10px">
+      <thead>
+      <tr>
+        <th><span nz-text><strong>图 片</strong></span></th>
+        <th><span nz-text><strong>优先级</strong></span></th>
+        <th><span nz-text><strong>操 作</strong></span></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of table.data">
+        <td>
+          <nz-avatar [nzShape]="'square'" [nzIcon]="'user'" nzSrc="{{data.url}}"></nz-avatar>
+        </td>
+        <td>{{ data.priority}}</td>
+        <td style="padding-left: 0px;">
+          <button nz-button nzType="primary" (click)="showModal(data)"
+                  nzGhost="true" nzSize="small">更 改
+          </button>
+          <button nz-button nzType="danger" (click)="showDeleteConfirm(data.id)"
+                  nzGhost="true" nzSize="small">删 除
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

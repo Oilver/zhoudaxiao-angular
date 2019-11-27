@@ -1,0 +1,30 @@
+.inner {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+[nz-form] {
+  margin: auto;
+  max-width: 700px;
+}
+
+.ant-upload-text {
+  margin-top: 8px;
+  color: #666;
+}
+
+#add {
+  font-size: 32px;
+  color: #999;
+}
+
+.custom-button {
+  position: absolute;
+  z-index: 99;
+}
+
+.custom-row {
+  display: flex;
+  flex-wrap: wrap;
+}

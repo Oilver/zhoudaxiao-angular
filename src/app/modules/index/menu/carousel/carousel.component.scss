@@ -1,0 +1,30 @@
+[nz-form] {
+  max-width: 600px;
+}
+
+button {
+  margin-left: 8px;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+#runningAccountIndex {
+  width: 100%;
+  height: 100%
+}
+
+[nz-carousel-content] {
+  text-align: center;
+  height: 120px;
+  line-height: 120px;
+  //background: #364d79;
+  //color: #fff;
+  overflow: hidden;
+}
+

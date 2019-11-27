@@ -1,0 +1,11 @@
+<div id="runningAccountIndex" #runningAccountIndex>
+  <div class="flex">
+    <h1>今日推荐列表</h1>
+    <div style="display: flex">
+      <button nz-button (click)="operateProduct('add',null,'1')">
+        <i nz-icon nzType="rocket"></i><span>添加推荐商品</span>
+      </button>
+    </div>
+  </div>
+  <app-product-table #productTable [recordNumber]="recordNumber"></app-product-table>
+</div>

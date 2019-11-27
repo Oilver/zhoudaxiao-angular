@@ -1,0 +1,183 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <a [routerLink]="['../../']">商品列表</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <span *ngIf="type=='add'">添加</span><span *ngIf="type=='update'">更新</span>商品
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner">
+  <br>
+  <form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzRequired>商品名</nz-form-label>
+      <nz-form-control [nzSpan]="8" nzHasFeedback nzValidatingTip="校验中..." [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="name" placeholder="必 填" [maxLength]="20"/>
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            必须输入商品名！
+          </ng-container>
+          <ng-container *ngIf="control.hasError('duplicated')">
+            改商品名已存在！
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzRequired>类 别</nz-form-label>
+      <nz-form-control [nzSpan]="8" nzErrorTip="此为必填项">
+        <nz-select formControlName="categoryId" nzAllowClear nzPlaceHolder="请选择">
+          <nz-option *ngFor="let item of categoryList" nzValue="{{item.id}}" nzLabel="{{item.name}}"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzRequired>今日推荐</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-radio-group formControlName="isNew">
+          <label nz-radio nzValue='0'>否</label>
+          <label nz-radio nzValue='1'>是</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item [hidden]="validateForm.controls['isNew'].value != '1'">
+      <nz-form-label [nzSpan]="6">优先级</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-input-number style="width: 100%" formControlName="priority" [nzMin]="0" [nzMax]="99"
+                         nzPlaceHolder="优先级的大小决定展示的顺序"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzRequired>代理价</nz-form-label>
+      <nz-form-control [nzSpan]="8" nzHasFeedback nzErrorTip="此为必填项！">
+        <nz-input-number style="width: 100%" formControlName="agentPrice" [nzMin]="0" [nzMax]="1000000"
+                         [nzPrecision]="2" nzPlaceHolder="必 填"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzRequired>原 价</nz-form-label>
+      <nz-form-control [nzSpan]="8" nzHasFeedback nzErrorTip="此为必填项！">
+        <nz-input-number style="width: 100%" formControlName="originalPrice" nzPlaceHolder="必 填"
+                         [nzMin]="0" [nzMax]="1000000" [nzPrecision]="2"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzRequired>打折价</nz-form-label>
+      <nz-form-control [nzSpan]="8" nzHasFeedback nzErrorTip="此为必填项！">
+        <nz-input-number style="width: 100%" formControlName="discountPrice" nzPlaceHolder="必 填"
+                         [nzMin]="0" [nzMax]="1000000" [nzPrecision]="2"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">运 费</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-input-number style="width: 100%" formControlName="freight" [nzMin]="0" [nzMax]="99"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">库 存</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-input-number style="width: 100%" formControlName="stock" [nzMin]="0" [nzMax]="1000000"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">简 介</nz-form-label>
+      <div>
+        <nz-form-control [nzSpan]="8">
+          <input nz-input formControlName="introduction" [maxLength]="20"/>
+        </nz-form-control>
+      </div>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">详细信息</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <textarea formControlName="detail" nz-input rows="3" placeholder="请输入商品的详细信息（非必填）"
+                  [maxLength]="300"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div nz-row [hidden]="type!='update'">
+      <div nz-row>
+        <div nz-col nzOffset="6">
+          <nz-upload nzAction="{{uploadUrl2}}" [hidden]="imageEntityList.length >= 8"
+                     nzAccept="image/jpg,image/jpeg,image/png,image/svg,image/webp"
+                     [nzShowUploadList]="false"
+                     [nzBeforeUpload]="beforeUpload"
+                     [nzCustomRequest]="customReq"
+          >
+            <button nz-button><i nz-icon nzType="upload"></i><span>继续添加图片</span></button>
+          </nz-upload>
+        </div>
+      </div>
+      <br>
+      <div>
+        <div nz-col nzOffset="6" nzSpan="18" class="custom-row">
+          <br>
+          <div *ngFor="let item of imageEntityList" style=" position: relative;">
+            <button class="custom-button" nz-button nzType="dashed" nzShape="circle"
+                    (click)="handlePreview(item)"><i nz-icon nzType="eye"></i>
+            </button>
+            <button [hidden]="imageEntityList.length ==1" class="custom-button" nz-button nzType="danger"
+                    nzShape="circle" style="right: 8px"
+                    (click)="showDeleteConfirm(item)"><i nz-icon nzType="delete"></i>
+            </button>
+            <div style="padding: 10px;margin-right: 8px">
+              <nz-avatar [nzSize]="100" [nzIcon]="'user'"
+                         nzSrc="{{item.url}}"></nz-avatar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div nz-row [hidden]="type!='add'">
+      <div nz-col nzOffset="6" nzSpan="18">
+        <nz-upload
+          nzAction="{{uploadUrl}}"
+          nzAccept="image/jpg,image/jpeg,image/png,image/svg,image/webp"
+          [nzBeforeUpload]="beforeUpload"
+          (nzChange)="upLoadChange($event)"
+          [nzShowUploadList]="showUploadList"
+          nzListType="picture-card"
+          [nzShowButton]="fileKeys.length < 8"
+          [nzPreview]="handlePreview"
+        >
+          <i nz-icon nzType="plus" id="add"></i>
+          <div class="ant-upload-text">
+            <span *ngIf="fileKeys.length == 0"> 添加图片(第一张为头像)</span>
+            <span *ngIf="fileKeys.length > 0"> 再加一张</span>
+          </div>
+        </nz-upload>
+      </div>
+    </div>
+    <br>
+    <nz-form-item>
+      <nz-form-control [nzOffset]="6">
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid"
+                (click)="submitForm()">确定
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+
+<nz-modal
+  [nzVisible]="previewVisible"
+  [nzContent]="modalContent"
+  [nzFooter]="null"
+  (nzOnCancel)="previewVisible = false"
+>
+  <ng-template #modalContent>
+    <img [src]="previewImage" [ngStyle]="{ width: '100%' }"/>
+  </ng-template>
+</nz-modal>

@@ -1,0 +1,105 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <a [routerLink]="['../../']">商品列表</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    商品详情
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner">
+  <br>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">
+        <nz-tag *ngIf="data.isNew == 1" [nzColor]="'green'" class="tag">今日推荐</nz-tag>
+        商品名
+      </nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <input nz-input [value]="data.name" readonly/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">类 别</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <input nz-input [value]="data.categoryName" readonly/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">代理价</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <input nz-input [value]="data.agentPrice" readonly/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">原 价</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <input nz-input [value]="data.originalPrice" readonly/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">打折价</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <input nz-input [value]="data.discountPrice" readonly/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">运 费</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <input nz-input [value]="data.freight" readonly/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">库 存</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <input nz-input [value]="data.stock" readonly/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">简 介</nz-form-label>
+      <div>
+        <nz-form-control [nzSpan]="8">
+          <input nz-input [value]="data.introduction" readonly/>
+        </nz-form-control>
+      </div>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">详细信息</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <textarea nz-input rows="3" [value]="data.detail" readonly></textarea>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div nz-row>
+      <div nz-col nzOffset="6" nzSpan="18" class="custom-row">
+        <br>
+        <div *ngFor="let item of data.imageEntityList" style=" position: relative;">
+          <button class="custom-button" nz-button nzType="dashed" nzShape="circle"
+                  (click)="handlePreview(item)"><i nz-icon nzType="eye"></i>
+          </button>
+          <div style="padding: 10px;margin-right: 8px">
+            <nz-avatar [nzSize]="100" [nzIcon]="'user'"
+                       nzSrc="{{item.url}}"></nz-avatar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nz-modal
+      [nzVisible]="previewVisible"
+      [nzContent]="modalContent"
+      [nzFooter]="null"
+      (nzOnCancel)="previewVisible = false"
+    >
+      <ng-template #modalContent>
+        <img [src]="previewImage" [ngStyle]="{ width: '100%' }"/>
+      </ng-template>
+    </nz-modal>
+  </form>
+</div>
