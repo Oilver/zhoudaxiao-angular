@@ -21,8 +21,7 @@ export class IDMInterceptor implements HttpInterceptor {
       withCredentials: true,
     });
     let token = localStorage.getItem(environment.current_user);
-    if (token == null && req.url != environment.url + '/login' && req.url != environment.url + '/user/add'
-      && req.url != environment.domain + '/login' && req.url != environment.domain + '/user/add') {
+    if (token == null && req.url != environment.url + '/login' && req.url != environment.url + '/user/add') {
       this.router.navigate(['/check']);
       // this.nzMessageService.error('请先登录', {nzDuration: 5000});
       return of();
