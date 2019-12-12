@@ -23,7 +23,7 @@ export class CarouselComponent implements OnInit {
   recordForm: FormGroup;
   recordNumber = 10;
   listOfDisplayData = [];
-  uploadUrl = environment.url + 'image/uploadCarousels';
+  uploadUrl = environment.url + '/image/uploadCarousels';
 
   constructor(private modalService: NzModalService, private fb: FormBuilder, private imageService: ImageService, private nzMessageService: NzMessageService,
               private fileService: FileService) {

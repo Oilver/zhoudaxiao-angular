@@ -146,7 +146,7 @@ export class ProductOperateComponent implements OnInit {
     });
 
   //图片处理
-  uploadUrl = environment.url + 'image/uploadImage?imageType=' + ImageTypeEnum.Product;
+  uploadUrl = environment.url + '/image/uploadImage?imageType=' + ImageTypeEnum.Product;
   showUploadList = {
     showPreviewIcon: true,  //预览功能
     showRemoveIcon: true,  //删除按钮
@@ -207,7 +207,7 @@ export class ProductOperateComponent implements OnInit {
   };
 
   //更新时的url和功能
-  uploadUrl2 = environment.url + 'image/uploadProductImage';
+  uploadUrl2 = environment.url + '/image/uploadProductImage';
   customReq = (item: UploadXHRArgs) => {
     let formData: FormData = new FormData();
     formData.append('file', item.file as any);
