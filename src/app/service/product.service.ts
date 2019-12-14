@@ -17,7 +17,7 @@ export class ProductService {
   }
 
   checkIsExist(name): Observable<any> {
-    return this.http.post(environment.url + '/product/checkIsExist?name=' + name, null);
+    return this.http.post(environment.url + '/product/checkIsExist?name=' + name, {});
   }
 
   add(json): Observable<any> {
@@ -25,11 +25,11 @@ export class ProductService {
   }
 
   delete(id): Observable<any> {
-    return this.http.post(environment.url + '/product/delete?id=' + id, null);
+    return this.http.post(environment.url + '/product/delete?id=' + id, {});
   }
 
   query(id): Observable<any> {
-    return this.http.post(environment.url + '/product/query?id=' + id, null);
+    return this.http.post(environment.url + '/product/query?id=' + id, {});
   }
 
   update(json): Observable<any> {

@@ -12,11 +12,11 @@ export class ImageService {
   }
 
   queryCarousels(): Observable<any> {
-    return this.http.post(environment.url + '/image/queryCarousels', null);
+    return this.http.post(environment.url + '/image/queryCarousels', {});
   }
 
   deleteCarousels(id): Observable<any> {
-    return this.http.post(environment.url + '/image/deleteCarousels?id=' + id, null);
+    return this.http.post(environment.url + '/image/deleteCarousels?id=' + id, {});
   }
 
   updateCarousels(json): Observable<any> {
@@ -24,6 +24,6 @@ export class ImageService {
   }
 
   deleteImage(id): Observable<any> {
-    return this.http.post(environment.url + '/image/deleteImage?id=' + id, null);
+    return this.http.post(environment.url + '/image/deleteImage?id=' + id, {});
   }
 }

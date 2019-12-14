@@ -16,7 +16,7 @@ export class IndexService {
   }
 
   logout(): Observable<any> {
-    return this.http.post(environment.url + '/logout', null);
+    return this.http.post(environment.url + '/logout', {});
   }
 
   registry(json: any): Observable<any> {

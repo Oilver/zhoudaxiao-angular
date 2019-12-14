@@ -33,7 +33,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.url.subscribe(() => this.setNavType(document.location.href));
-    this.userService.queryCurrentUser(null).subscribe(result => {
+    this.userService.queryCurrentUser({}).subscribe(result => {
       this.username = result.data.username;
     });
   }

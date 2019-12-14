@@ -12,7 +12,7 @@ export class CategoryService {
   }
 
   queryAll(): Observable<any> {
-    return this.http.post(environment.url + '/category/queryAll', null);
+    return this.http.post(environment.url + '/category/queryAll', {});
   }
 
   add(json): Observable<any> {
@@ -24,6 +24,6 @@ export class CategoryService {
   }
 
   delete(id): Observable<any> {
-    return this.http.post(environment.url + '/category/delete?id=' + id, null);
+    return this.http.post(environment.url + '/category/delete?id=' + id, {});
   }
 }

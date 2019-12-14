@@ -20,7 +20,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
     this.recordNumber = (this.userListIndex.nativeElement.offsetHeight - 70.19 - 10 - 45) / 46 - 1;
-    this.userService.queryCurrentUser(null).subscribe(result => {
+    this.userService.queryCurrentUser({}).subscribe(result => {
       this.role = result.data.role;
       this.id = result.data.id;
     });
@@ -28,7 +28,7 @@ export class UserListComponent implements OnInit {
   }
 
   initData() {
-    this.userService.queryUserList(null).subscribe(result => {
+    this.userService.queryUserList({}).subscribe(result => {
       if (result.status == 100) {
         this.userList = result.data.userList;
         this.unPassList = result.data.unPassList;
