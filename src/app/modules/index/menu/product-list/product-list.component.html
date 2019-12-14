@@ -9,7 +9,7 @@
           <nz-option *ngFor="let item of categoryList" nzValue="{{item.id}}" nzLabel="{{item.name}}"></nz-option>
         </nz-select>
       </div>
-      <button nz-button (click)="operateProduct('add')">
+      <button nz-button (click)="addProduct()">
         <i nz-icon nzType="plus"></i><span>添加商品</span>
       </button>
     </div>

@@ -54,13 +54,13 @@ export class ProductTableComponent implements OnInit {
     });
   }
 
-  operateProduct(type, categoryId, id?) {
+  updateProduct(data) {
     this.router.navigate(['index/menu/operate'], {
       queryParams: {
-        type: type,
-        id: id == null ? '' : id,
-        fromType: this.fromType,
-        categoryId: categoryId
+        type: 'update',
+        id: data.id,
+        categoryId: data.categoryId,
+        fromType: this.fromType
       }
     });
   }

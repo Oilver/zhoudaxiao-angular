@@ -79,11 +79,10 @@ export class ProductListComponent implements OnInit {
     this.productTable.queryProductByCategoryId(categoryId);
   }
 
-  operateProduct(type, id?) {
+  addProduct() {
     this.router.navigate(['index/menu/operate'], {
       queryParams: {
-        type: type,
-        id: id == null ? '' : id,
+        type: 'add',
         categoryId: this.categoryId,
         fromType: FromTypeEnum.productList
       }

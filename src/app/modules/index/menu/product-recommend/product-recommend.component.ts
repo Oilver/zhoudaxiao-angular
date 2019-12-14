@@ -23,12 +23,11 @@ export class ProductRecommendComponent implements OnInit {
     this.productTable.queryProductRecommend();
   }
 
-  operateProduct(type, id?, isNew?) {
+  addProduct() {
     this.router.navigate(['index/menu/operate'], {
       queryParams: {
-        type: type,
-        id: id == null ? '' : id,
-        isNew: isNew == null ? '' : isNew,
+        type: 'add',
+        isNew: '1',
         fromType: FromTypeEnum.recommend
       }
     });
