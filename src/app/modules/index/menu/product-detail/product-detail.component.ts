@@ -1,12 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CategoryService} from '../../../../service/category.service';
 import {ProductService} from '../../../../service/product.service';
 import {NzMessageService, NzModalService, UploadXHRArgs} from 'ng-zorro-antd';
 import {ProductEntity} from '../../../../common/entity/ProductEntity';
 import {FileService} from '../../../../service/file.service';
-import {ImageService} from '../../../../service/image.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -16,14 +13,19 @@ import {ImageService} from '../../../../service/image.service';
 export class ProductDetailComponent implements OnInit {
 
   id;
+  categoryId;
+  fromType;
   data: ProductEntity = new ProductEntity();
 
-  constructor(private productService: ProductService, private modalService: NzModalService, private fileService: FileService, private nzMessageService: NzMessageService, private router: Router, private activatedRoute: ActivatedRoute, private fb: FormBuilder, private categoryService: CategoryService, private imageService: ImageService,) {
+  constructor(private productService: ProductService, private modalService: NzModalService, private fileService: FileService,
+              private nzMessageService: NzMessageService, private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
       this.id = params.id;
+      this.categoryId = params.categoryId;
+      this.fromType = params.fromType;
     });
     this.initData();
   }
@@ -47,4 +49,16 @@ export class ProductDetailComponent implements OnInit {
     this.previewImage = item.url;
     this.previewVisible = true;
   };
+
+  navProductList() {
+    this.router.navigate(['index/menu/productList'], {
+      queryParams: {
+        categoryId: this.categoryId,
+      }
+    });
+  }
+
+  navRecommendList() {
+    this.router.navigateByUrl('index/menu/recommend');
+  }
 }

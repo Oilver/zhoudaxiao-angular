@@ -5,6 +5,7 @@ import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {CategoryService} from '../../../../service/category.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProductTableComponent} from '../product-table/product-table.component';
+import {FromTypeEnum} from '../../../../common/enum/FromTypeEnum';
 
 @Component({
   selector: 'app-product-list',
@@ -16,6 +17,7 @@ export class ProductListComponent implements OnInit {
   @ViewChild('productTable', {static: true}) productTable: ProductTableComponent;
   categoryId;
   recordNumber = 10;
+  fromType = FromTypeEnum.productList;
 
   constructor(private modalService: NzModalService, private router: Router, private activatedRoute: ActivatedRoute, private fb: FormBuilder, private recordService: RecordService, private nzMessageService: NzMessageService,
               private categoryService: CategoryService) {
@@ -81,7 +83,9 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['index/menu/operate'], {
       queryParams: {
         type: type,
-        id: id == null ? '' : id
+        id: id == null ? '' : id,
+        categoryId: this.categoryId,
+        fromType: FromTypeEnum.productList
       }
     });
   }

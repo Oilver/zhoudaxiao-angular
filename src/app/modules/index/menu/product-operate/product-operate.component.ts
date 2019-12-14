@@ -4,11 +4,12 @@ import {Observable, Observer, Subscription} from 'rxjs';
 import {CategoryService} from '../../../../service/category.service';
 import {ProductService} from '../../../../service/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NzMessageService, NzModalService, UploadFile, UploadXHRArgs} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService, UploadXHRArgs} from 'ng-zorro-antd';
 import {environment} from '../../../../../environments/environment';
 import {FileService} from '../../../../service/file.service';
 import {ImageTypeEnum} from '../../../../common/enum/ImageTypeEnum';
 import {ImageService} from '../../../../service/image.service';
+import {FromTypeEnum} from '../../../../common/enum/FromTypeEnum';
 
 @Component({
   selector: 'app-product-operate',
@@ -40,9 +41,11 @@ export class ProductOperateComponent implements OnInit {
   }
 
   id = '';
+  categoryId = '';
   type = '';
   name = '';
   isNew = '';
+  fromType;
   imageEntityList = [];
 
   ngOnInit() {
@@ -50,6 +53,8 @@ export class ProductOperateComponent implements OnInit {
       this.id = params.id;
       this.type = params.type;
       this.isNew = params.isNew;
+      this.categoryId = params.categoryId;
+      this.fromType = params.fromType;
     });
     this.initData();
   }
@@ -105,14 +110,22 @@ export class ProductOperateComponent implements OnInit {
       this.productService.add(this.validateForm.value).subscribe(result => {
         if (result.status == 100) {
           this.nzMessageService.success('商品添加成功');
-          this.router.navigateByUrl('/index/menu/productList');
+          if (this.fromType == FromTypeEnum.productList) {
+            this.navProductList(this.validateForm.get('categoryId').value);
+          } else if (this.fromType == FromTypeEnum.recommend) {
+            this.navRecommendList();
+          }
         }
       });
     } else if (this.type == 'update') { //更新商品
       this.productService.update(this.validateForm.value).subscribe(result => {
         if (result.status == 100) {
           this.nzMessageService.success('商品更新成功');
-          this.router.navigateByUrl('/index/menu/productList');
+          if (this.fromType == FromTypeEnum.productList) {
+            this.navProductList(this.validateForm.get('categoryId').value);
+          } else if (this.fromType == FromTypeEnum.recommend) {
+            this.navRecommendList();
+          }
         }
       });
     }
@@ -237,5 +250,17 @@ export class ProductOperateComponent implements OnInit {
       nzOkText: '确定',
       nzCancelText: '取消'
     });
+  }
+
+  navProductList(categoryId?) {
+    this.router.navigate(['index/menu/productList'], {
+      queryParams: {
+        categoryId: categoryId == null ? this.categoryId : categoryId,
+      }
+    });
+  }
+
+  navRecommendList() {
+    this.router.navigateByUrl('index/menu/recommend');
   }
 }

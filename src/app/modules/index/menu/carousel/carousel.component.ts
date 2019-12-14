@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NzMessageService, NzModalService, UploadFile, UploadXHRArgs} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService, UploadXHRArgs} from 'ng-zorro-antd';
 import {ImageService} from '../../../../service/image.service';
 import {environment} from '../../../../../environments/environment';
 import {Observable, Observer} from 'rxjs';
@@ -17,8 +17,6 @@ export class CarouselComponent implements OnInit {
 
   isVisible = false;
   isOkLoading = false;
-
-  userRole = 0;
 
   recordForm: FormGroup;
   recordNumber = 10;

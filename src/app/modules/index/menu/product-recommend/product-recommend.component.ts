@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NzModalService} from 'ng-zorro-antd';
 import {Router} from '@angular/router';
 import {ProductTableComponent} from '../product-table/product-table.component';
+import {FromTypeEnum} from '../../../../common/enum/FromTypeEnum';
 
 @Component({
   selector: 'app-product-recommend',
@@ -11,6 +12,7 @@ import {ProductTableComponent} from '../product-table/product-table.component';
 export class ProductRecommendComponent implements OnInit {
   @ViewChild('runningAccountIndex', {static: true}) runningAccountIndex: ElementRef;
   @ViewChild('productTable', {static: true}) productTable: ProductTableComponent;
+  fromType = FromTypeEnum.recommend;
   recordNumber = 10;
 
   constructor(private modalService: NzModalService, private router: Router) {
@@ -26,7 +28,8 @@ export class ProductRecommendComponent implements OnInit {
       queryParams: {
         type: type,
         id: id == null ? '' : id,
-        isNew: isNew == null ? '' : isNew
+        isNew: isNew == null ? '' : isNew,
+        fromType: FromTypeEnum.recommend
       }
     });
   }

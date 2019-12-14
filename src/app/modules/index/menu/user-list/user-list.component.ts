@@ -55,7 +55,7 @@ export class UserListComponent implements OnInit {
 
   showPassConfirm(id): void {
     this.modalService.confirm({
-      nzTitle: '<p>您确定同意该用户加入工作室吗？</p>',
+      nzTitle: '<p>您确定添加该用户为管理员吗？</p>',
       nzOnOk: () => this.pass(id, 1),
       nzOkText: '确定',
       nzCancelText: '取消'

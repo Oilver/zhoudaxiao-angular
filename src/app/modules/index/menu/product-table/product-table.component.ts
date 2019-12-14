@@ -14,6 +14,8 @@ import {QueryTypeEnum} from '../../../../common/enum/QueryTypeEnum';
 })
 export class ProductTableComponent implements OnInit {
   @Input() recordNumber;
+  @Input() fromType;
+
   recordEntityList = [];
   categoryId;
 
@@ -52,11 +54,13 @@ export class ProductTableComponent implements OnInit {
     });
   }
 
-  operateProduct(type, id?) {
+  operateProduct(type, categoryId, id?) {
     this.router.navigate(['index/menu/operate'], {
       queryParams: {
         type: type,
-        id: id == null ? '' : id
+        id: id == null ? '' : id,
+        fromType: this.fromType,
+        categoryId: categoryId
       }
     });
   }
@@ -80,6 +84,8 @@ export class ProductTableComponent implements OnInit {
     this.router.navigate(['index/menu/detail'], {
       queryParams: {
         id: data.id,
+        categoryId: data.categoryId,
+        fromType: this.fromType
       }
     });
   }

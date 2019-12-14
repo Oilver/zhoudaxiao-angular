@@ -14,11 +14,10 @@ import {ProductRecommendComponent} from './menu/product-recommend/product-recomm
 import {ProductOperateComponent} from './menu/product-operate/product-operate.component';
 import {ProductDetailComponent} from './menu/product-detail/product-detail.component';
 import {ProductTableComponent} from './menu/product-table/product-table.component';
-import { ProductHotComponent } from './menu/product-hot/product-hot.component';
 
 
 @NgModule({
-  declarations: [MenuComponent, RecordTypePipe, UserListComponent, CategoryComponent, CarouselComponent, ProductListComponent, ProductRecommendComponent, ProductOperateComponent, ProductDetailComponent, ProductTableComponent, ProductHotComponent],
+  declarations: [MenuComponent, RecordTypePipe, UserListComponent, CategoryComponent, CarouselComponent, ProductListComponent, ProductRecommendComponent, ProductOperateComponent, ProductDetailComponent, ProductTableComponent],
   imports: [
     CommonModule,
     IndexRoutingModule,
