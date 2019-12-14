@@ -5,7 +5,6 @@ import {FormBuilder} from '@angular/forms';
 import {RecordService} from '../../../../service/record.service';
 import {CategoryService} from '../../../../service/category.service';
 import {ProductService} from '../../../../service/product.service';
-import {QueryTypeEnum} from '../../../../common/enum/QueryTypeEnum';
 
 @Component({
   selector: 'app-product-table',
@@ -34,11 +33,12 @@ export class ProductTableComponent implements OnInit {
 
   queryProductByCategoryId(categoryId: number) {
     this.categoryId = categoryId;
-    let params = {
+    let param = {
+      orderBy: 'pageviews',
+      sortType: 'desc',
       categoryId: categoryId,
-      queryType: QueryTypeEnum.BY_CATEGORY
     };
-    this.productService.queryProductList(params).subscribe(result => {
+    this.productService.queryProductList(param).subscribe(result => {
       this.recordEntityList = result.data.list;
       this.listOfDisplayData = this.recordEntityList;
       this.search();
@@ -47,7 +47,12 @@ export class ProductTableComponent implements OnInit {
 
   //今日推荐的查询
   queryProductRecommend() {
-    this.productService.queryProductList({queryType: QueryTypeEnum.BY_TODAY}).subscribe(result => {
+    let param = {
+      orderBy: 'priority',
+      sortType: 'desc',
+      isNew: 1,
+    };
+    this.productService.queryProductList(param).subscribe(result => {
       this.recordEntityList = result.data.list;
       this.listOfDisplayData = this.recordEntityList;
       this.search();
