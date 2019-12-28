@@ -64,6 +64,9 @@ export class ProductOperateComponent implements OnInit {
     this.categoryService.queryAll().subscribe(result => {
       if (result.status == 100) {
         this.categoryList = result.data;
+        if (this.categoryId !== null && this.categoryId !== '') {
+          this.validateForm.get('categoryId').setValue(this.categoryId + '');
+        }
         //从今日推荐页面进来的
         if (this.isNew != null && this.isNew != '') {
           this.validateForm.get('isNew').setValue(this.isNew);

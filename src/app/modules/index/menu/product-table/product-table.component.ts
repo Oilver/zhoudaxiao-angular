@@ -1,10 +1,11 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder} from '@angular/forms';
 import {RecordService} from '../../../../service/record.service';
 import {CategoryService} from '../../../../service/category.service';
 import {ProductService} from '../../../../service/product.service';
+import {FromTypeEnum} from '../../../../common/enum/FromTypeEnum';
 
 @Component({
   selector: 'app-product-table',
@@ -26,9 +27,6 @@ export class ProductTableComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.categoryId = params.categoryId;
     });
-    if (this.categoryId != null) {
-      this.queryProductByCategoryId(this.categoryId);
-    }
   }
 
   queryProductByCategoryId(categoryId: number) {
@@ -37,6 +35,7 @@ export class ProductTableComponent implements OnInit {
       orderBy: 'pageviews',
       sortType: 'desc',
       categoryId: categoryId,
+      showAll: true
     };
     this.productService.queryProductList(param).subscribe(result => {
       this.recordEntityList = result.data.list;
@@ -51,6 +50,7 @@ export class ProductTableComponent implements OnInit {
       orderBy: 'priority',
       sortType: 'desc',
       isNew: 1,
+      showAll: true
     };
     this.productService.queryProductList(param).subscribe(result => {
       this.recordEntityList = result.data.list;
@@ -75,8 +75,12 @@ export class ProductTableComponent implements OnInit {
       nzTitle: '<p>您确定将该商品删除吗？</p>',
       nzOnOk: () => {
         this.productService.delete(id).subscribe(result => {
-          if (result.status == 100) {
-            this.queryProductByCategoryId(Number(this.categoryId));
+          if (result.status === 100) {
+            if (this.fromType === FromTypeEnum.productList) {
+              this.queryProductByCategoryId(this.categoryId);
+            } else if (this.fromType === FromTypeEnum.recommend) {
+              this.queryProductRecommend();
+            }
           }
         });
       },
