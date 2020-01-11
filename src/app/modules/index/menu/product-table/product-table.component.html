@@ -16,7 +16,7 @@
     <tr *ngFor="let data of table.data">
       <td>
         <nz-avatar [nzShape]="'square'" [nzIcon]="'user'" nzSrc="{{data.avatarUrl}}"></nz-avatar>
-        <nz-tag *ngIf="data.isNew == 1" [nzColor]="'green'" class="tag">今日推荐</nz-tag>
+        <nz-tag *ngIf="data.isNew" [nzColor]="'green'" class="tag">今日推荐</nz-tag>
       </td>
       <td><a href="javascript:void(0);" (click)="navDetail(data)">{{ data.name }}</a></td>
       <td>{{ data.originalPrice}}</td>

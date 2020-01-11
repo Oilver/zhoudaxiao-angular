@@ -20,6 +20,6 @@ export class IndexService {
   }
 
   registry(json: any): Observable<any> {
-    return this.http.post(environment.url + '/user/add', json);
+    return this.http.post(environment.url + '/person/add', json);
   }
 }

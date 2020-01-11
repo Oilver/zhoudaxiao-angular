@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserService} from '../../../service/user.service';
+import {PersonService} from '../../../service/person.service';
 import {NzModalService} from 'ng-zorro-antd';
 import {environment} from '../../../../environments/environment';
 import {IndexService} from '../../../service/index.service';
@@ -19,12 +19,12 @@ export class MenuComponent implements OnInit {
   urls: { [index: string]: string } = {};
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
-              private userService: UserService, private indexService: IndexService,
+              private personService: PersonService, private indexService: IndexService,
               private modalService: NzModalService,
               @Inject(DOCUMENT) document: any) {
     //设置url
     this.urls['categoryUrl'] = '/index/menu/category';
-    this.urls['userListUrl'] = '/index/menu/userList';
+    this.urls['personListUrl'] = '/index/menu/personList';
     this.urls['carouselUrl'] = '/index/menu/carousel';
     this.urls['productListUrl'] = '/index/menu/productList';
     this.urls['recommendUrl'] = '/index/menu/recommend';
@@ -33,7 +33,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.url.subscribe(() => this.setNavType(document.location.href));
-    this.userService.queryCurrentUser({}).subscribe(result => {
+    this.personService.queryCurrentPerson({}).subscribe(result => {
       this.username = result.data.username;
     });
   }
@@ -72,7 +72,7 @@ export class MenuComponent implements OnInit {
   logout() {
     this.indexService.logout().subscribe(result => {
       if (result.status == 100) {
-        localStorage.removeItem(environment.current_user);
+        localStorage.removeItem(environment.current_person);
         this.router.navigateByUrl('/check');
       }
     });

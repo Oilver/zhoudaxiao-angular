@@ -27,7 +27,7 @@ export class ProductRecommendComponent implements OnInit {
     this.router.navigate(['index/menu/operate'], {
       queryParams: {
         type: 'add',
-        isNew: '1',
+        isNew: true,
         fromType: FromTypeEnum.recommend
       }
     });

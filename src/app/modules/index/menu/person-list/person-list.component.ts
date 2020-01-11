@@ -1,26 +1,26 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {UserService} from '../../../../service/user.service';
+import {PersonService} from '../../../../service/person.service';
 import {NzModalService} from 'ng-zorro-antd';
 
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html'
+  selector: 'app-person-list',
+  templateUrl: './person-list.component.html'
 })
-export class UserListComponent implements OnInit {
-  @ViewChild('userListIndex', {static: true}) userListIndex: ElementRef;
+export class PersonListComponent implements OnInit {
+  @ViewChild('personListIndex', {static: true}) personListIndex: ElementRef;
 
-  userList = [];
+  personList = [];
   unPassList = [];
   role = 0;
   id = 0;
   recordNumber = 10;
 
-  constructor(private userService: UserService, private modalService: NzModalService) {
+  constructor(private personService: PersonService, private modalService: NzModalService) {
   }
 
   ngOnInit() {
-    this.recordNumber = (this.userListIndex.nativeElement.offsetHeight - 70.19 - 10 - 45) / 46 - 1;
-    this.userService.queryCurrentUser({}).subscribe(result => {
+    this.recordNumber = (this.personListIndex.nativeElement.offsetHeight - 70.19 - 10 - 45) / 46 - 1;
+    this.personService.queryCurrentPerson({}).subscribe(result => {
       this.role = result.data.role;
       this.id = result.data.id;
     });
@@ -28,9 +28,9 @@ export class UserListComponent implements OnInit {
   }
 
   initData() {
-    this.userService.queryUserList({}).subscribe(result => {
+    this.personService.queryPersonList({}).subscribe(result => {
       if (result.status == 100) {
-        this.userList = result.data.userList;
+        this.personList = result.data.personList;
         this.unPassList = result.data.unPassList;
       }
     });
@@ -39,13 +39,13 @@ export class UserListComponent implements OnInit {
   pass(id, status) {
     if (status == 1) {
       let params = {id: id, status: 1};
-      this.userService.updateUser(params).subscribe(result => {
+      this.personService.updatePerson(params).subscribe(result => {
         if (result.status == 100) {
           this.initData();
         }
       });
     } else if (status == 0) {
-      this.userService.delete(id).subscribe(result => {
+      this.personService.delete(id).subscribe(result => {
         if (result.status == 100) {
           this.initData();
         }

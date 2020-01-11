@@ -6,7 +6,7 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MenuComponent} from './menu/menu.component';
 import {RecordTypePipe} from '../../pipe/record-type.pipe';
-import {UserListComponent} from './menu/user-list/user-list.component';
+import {PersonListComponent} from './menu/person-list/person-list.component';
 import {CategoryComponent} from './menu/category/category.component';
 import {CarouselComponent} from './menu/carousel/carousel.component';
 import {ProductListComponent} from './menu/product-list/product-list.component';
@@ -17,7 +17,7 @@ import {ProductTableComponent} from './menu/product-table/product-table.componen
 
 
 @NgModule({
-  declarations: [MenuComponent, RecordTypePipe, UserListComponent, CategoryComponent, CarouselComponent, ProductListComponent, ProductRecommendComponent, ProductOperateComponent, ProductDetailComponent, ProductTableComponent],
+  declarations: [MenuComponent, RecordTypePipe, PersonListComponent, CategoryComponent, CarouselComponent, ProductListComponent, ProductRecommendComponent, ProductOperateComponent, ProductDetailComponent, ProductTableComponent],
   imports: [
     CommonModule,
     IndexRoutingModule,

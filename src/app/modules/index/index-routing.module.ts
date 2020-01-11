@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {MenuComponent} from './menu/menu.component';
-import {UserListComponent} from './menu/user-list/user-list.component';
+import {PersonListComponent} from './menu/person-list/person-list.component';
 import {CategoryComponent} from './menu/category/category.component';
 import {CarouselComponent} from './menu/carousel/carousel.component';
 import {ProductRecommendComponent} from './menu/product-recommend/product-recommend.component';
@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'menu', component: MenuComponent, children: [
       {path: 'productList', component: ProductListComponent},
       {path: 'recommend', component: ProductRecommendComponent},
-      {path: 'userList', component: UserListComponent},
+      {path: 'personList', component: PersonListComponent},
       {path: 'category', component: CategoryComponent},
       {path: 'carousel', component: CarouselComponent},
       {path: 'operate', component: ProductOperateComponent},

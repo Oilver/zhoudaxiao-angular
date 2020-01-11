@@ -12,7 +12,7 @@
     <form nz-form>
         <nz-form-item>
             <nz-form-label [nzSpan]="6">
-                <nz-tag *ngIf="data.isNew == 1" [nzColor]="'green'" class="tag">今日推荐</nz-tag>
+                <nz-tag *ngIf="data.isNew" [nzColor]="'green'" class="tag">今日推荐</nz-tag>
                 商品名
             </nz-form-label>
             <nz-form-control [nzSpan]="8">

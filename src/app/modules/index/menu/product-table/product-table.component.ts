@@ -49,7 +49,7 @@ export class ProductTableComponent implements OnInit {
     let param = {
       orderBy: 'priority',
       sortType: 'desc',
-      isNew: 1,
+      isNew: true,
       showAll: true
     };
     this.productService.queryProductList(param).subscribe(result => {

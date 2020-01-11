@@ -1,14 +1,14 @@
 import {HttpHandler, HttpInterceptor, HttpErrorResponse, HttpResponse, HttpHeaderResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {HttpRequest, HttpEvent} from '@angular/common/http';
-import {Observable, of, throwError} from 'rxjs';
-import {catchError, mergeMap, tap} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
 
 @Injectable({providedIn: 'root'})
-export class IDMInterceptor implements HttpInterceptor {
+export class CustomInterceptor implements HttpInterceptor {
 
   autoDisplayErrorCode: number[] = [500, 404, 20001, 20002, 99999, 404, 11, 601, 602, 603, 604];
 
@@ -20,8 +20,8 @@ export class IDMInterceptor implements HttpInterceptor {
     req = req.clone({
       withCredentials: true,
     });
-    let token = localStorage.getItem(environment.current_user);
-    if (token == null && req.url != environment.url + '/login' && req.url != environment.url + '/user/add') {
+    let token = localStorage.getItem(environment.current_person);
+    if (token == null && req.url != environment.url + '/login' && req.url != environment.url + '/person/add') {
       this.router.navigate(['/check']);
       // this.nzMessageService.error('请先登录', {nzDuration: 5000});
       return of();

@@ -9,7 +9,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HashLocationStrategy, LocationStrategy, registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import {IDMInterceptor} from './common/interceptor/IDMInterceptor';
+import {CustomInterceptor} from './common/interceptor/CustomInterceptor';
 
 registerLocaleData(zh);
 
@@ -27,7 +27,7 @@ registerLocaleData(zh);
     ReactiveFormsModule
   ],
   providers: [{provide: NZ_I18N, useValue: zh_CN},
-    {provide: HTTP_INTERCEPTORS, useClass: IDMInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: CustomInterceptor, multi: true},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
   ],
   bootstrap: [AppComponent]

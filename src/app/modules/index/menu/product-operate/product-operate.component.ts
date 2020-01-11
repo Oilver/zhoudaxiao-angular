@@ -36,7 +36,8 @@ export class ProductOperateComponent implements OnInit {
       stock: [''],//库存
       introduction: [''],
       detail: [''],
-      keys: []
+      keys: [],
+      test: [true],//是否今日推荐
     });
   }
 
@@ -44,7 +45,7 @@ export class ProductOperateComponent implements OnInit {
   categoryId = '';
   type = '';
   name = '';
-  isNew = '';
+  isNew = false;
   fromType;
   imageEntityList = [];
 
@@ -62,14 +63,14 @@ export class ProductOperateComponent implements OnInit {
   initData() {
     //先初始化类别
     this.categoryService.queryAll().subscribe(result => {
-      if (result.status == 100) {
+      if (result.status === 100) {
         this.categoryList = result.data;
         if (this.categoryId !== null && this.categoryId !== '') {
           this.validateForm.get('categoryId').setValue(this.categoryId + '');
         }
         //从今日推荐页面进来的
-        if (this.isNew != null && this.isNew != '') {
-          this.validateForm.get('isNew').setValue(this.isNew);
+        if (this.isNew != null) {
+          this.validateForm.get('isNew').setValue(this.isNew?'1':'0');
         }
         if (this.type == 'update' && this.id != '') {
           this.productService.query(this.id).subscribe(result => {
@@ -86,7 +87,7 @@ export class ProductOperateComponent implements OnInit {
     this.validateForm.get('id').setValue(data.id);
     this.validateForm.get('name').setValue(data.name);
     this.validateForm.get('categoryId').setValue(data.categoryId + '');
-    this.validateForm.get('isNew').setValue(data.isNew + '');
+    this.validateForm.get('isNew').setValue(data.isNew?'1':'0');
     this.validateForm.get('agentPrice').setValue(data.agentPrice);
     this.validateForm.get('originalPrice').setValue(data.originalPrice);
     this.validateForm.get('discountPrice').setValue(data.discountPrice);
@@ -102,6 +103,7 @@ export class ProductOperateComponent implements OnInit {
   }
 
   submitForm(): void {
+    this.validateForm.get('isNew').setValue(this.validateForm.get('isNew').value === '1')
     //新增商品
     if (this.type == 'add') {
       if (this.fileKeys.length == 0) {
