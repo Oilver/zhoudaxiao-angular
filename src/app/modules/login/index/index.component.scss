@@ -22,3 +22,19 @@
 
   background-position: center 0;
 }
+
+.footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  color: cadetblue;
+
+  .footer2 {
+    justify-content: center;
+    display: flex;
+
+    a {
+      color: cadetblue;
+    }
+  }
+}
