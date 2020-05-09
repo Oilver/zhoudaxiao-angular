@@ -6,6 +6,7 @@ import {tap} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
+import {constEnum} from '../const/ConstEnum';
 
 @Injectable({providedIn: 'root'})
 export class CustomInterceptor implements HttpInterceptor {
@@ -20,7 +21,7 @@ export class CustomInterceptor implements HttpInterceptor {
     req = req.clone({
       withCredentials: true,
     });
-    let token = localStorage.getItem(environment.zhoudaxiao_auth);
+    let token = localStorage.getItem(constEnum.ZHOUDAXIAO_AUTH);
     if (token == null && req.url !== environment.url + '/login' && req.url !== environment.url + '/person/add') {
       this.router.navigate(['/check']);
       // this.nzMessageService.error('请先登录', {nzDuration: 5000});
@@ -28,7 +29,7 @@ export class CustomInterceptor implements HttpInterceptor {
     } else if (token != null) {
       req = req.clone({
         setHeaders: {
-          'zhoudaxiao_auth': token,
+          'zhoudaxiao-auth': token,
           'request-origin': 'angular'
         }
       });

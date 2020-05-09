@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {IndexService} from '../../../service/index.service';
 import {environment} from '../../../../environments/environment';
 import {Md5} from 'ts-md5';
+import {constEnum} from '../../../common/const/ConstEnum';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.indexService.login(params).subscribe(result => {
       if (result.status == 100) {
         this.success = true;
-        localStorage.setItem(environment.zhoudaxiao_auth, result.data.token);
+        localStorage.setItem(constEnum.ZHOUDAXIAO_AUTH, result.data.token);
         this.router.navigateByUrl('/');
       } else {
         this.success = false;

@@ -5,6 +5,7 @@ import {NzModalService} from 'ng-zorro-antd';
 import {environment} from '../../../../environments/environment';
 import {IndexService} from '../../../service/index.service';
 import {DOCUMENT} from '@angular/common';
+import {constEnum} from '../../../common/const/ConstEnum';
 
 @Component({
   selector: 'app-index',
@@ -72,7 +73,7 @@ export class MenuComponent implements OnInit {
   logout() {
     this.indexService.logout().subscribe(result => {
       if (result.status == 100) {
-        localStorage.removeItem(environment.zhoudaxiao_auth);
+        localStorage.removeItem(constEnum.ZHOUDAXIAO_AUTH);
         this.router.navigateByUrl('/check');
       }
     });

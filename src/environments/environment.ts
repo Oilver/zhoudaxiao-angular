@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  url: 'http://localhost:8889',
-  zhoudaxiao_auth: 'zhoudaxiao_auth'
+  url: 'http://localhost:8889'
 };
 
 /*
