@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   url: 'http://localhost:8889',
-  current_person: 'current_person'
+  zhoudaxiao_auth: 'zhoudaxiao_auth'
 };
 
 /*

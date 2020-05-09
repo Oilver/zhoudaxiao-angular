@@ -72,7 +72,7 @@ export class MenuComponent implements OnInit {
   logout() {
     this.indexService.logout().subscribe(result => {
       if (result.status == 100) {
-        localStorage.removeItem(environment.current_person);
+        localStorage.removeItem(environment.zhoudaxiao_auth);
         this.router.navigateByUrl('/check');
       }
     });

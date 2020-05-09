@@ -12,7 +12,7 @@ export class CustomInterceptor implements HttpInterceptor {
 
   autoDisplayErrorCode: number[] = [500, 404, 20001, 20002, 99999, 404, 11, 601, 602, 603, 604];
 
-  constructor(private router: Router, private nzMessageService: NzMessageService,) {
+  constructor(private router: Router, private nzMessageService: NzMessageService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -20,22 +20,23 @@ export class CustomInterceptor implements HttpInterceptor {
     req = req.clone({
       withCredentials: true,
     });
-    let token = localStorage.getItem(environment.current_person);
-    if (token == null && req.url != environment.url + '/login' && req.url != environment.url + '/person/add') {
+    let token = localStorage.getItem(environment.zhoudaxiao_auth);
+    if (token == null && req.url !== environment.url + '/login' && req.url !== environment.url + '/person/add') {
       this.router.navigate(['/check']);
       // this.nzMessageService.error('请先登录', {nzDuration: 5000});
       return of();
     } else if (token != null) {
       req = req.clone({
         setHeaders: {
-          token: token
+          'zhoudaxiao_auth': token,
+          'request-origin': 'angular'
         }
       });
     }
     return next.handle(req).pipe(
       tap(response => {
           if (response instanceof HttpResponse) {
-            if (response.status === 200 && response.body && response.body.status != 100) {
+            if (response.status === 200 && response.body && response.body.status !== 100) {
               const message = response.body.msg || '未知错误';
               if (response.body.status === 401 || response.body.status === 11) {
                 //重新登录
@@ -43,7 +44,7 @@ export class CustomInterceptor implements HttpInterceptor {
               }
               //自动报错
               if (this.autoDisplayErrorCode.includes(response.body.status)) {
-                this.nzMessageService.error(response.body.msg, {nzDuration: 5000});
+                this.nzMessageService.error(message, {nzDuration: 5000});
               }
             }
           }

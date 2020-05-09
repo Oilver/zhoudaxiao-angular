@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.indexService.login(params).subscribe(result => {
       if (result.status == 100) {
         this.success = true;
-        localStorage.setItem(environment.current_person, result.data);
+        localStorage.setItem(environment.zhoudaxiao_auth, result.data.token);
         this.router.navigateByUrl('/');
       } else {
         this.success = false;
